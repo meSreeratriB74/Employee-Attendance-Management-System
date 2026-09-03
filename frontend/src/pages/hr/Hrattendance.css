@@ -1,0 +1,588 @@
+/* ==========================================================
+   HR Attendance Management Page
+   ========================================================== */
+
+.hr-attendance-page {
+    min-height: 100vh;
+    background: #fafbfd;
+    padding: 42px clamp(20px, 4vw, 60px) 70px;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    color: #121826;
+}
+
+.hr-attendance-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.hr-attendance-loading {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #fafbfd;
+    color: #5b6472;
+    font-size: 14px;
+}
+
+/* ---------- Header ---------- */
+
+.hr-attendance-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+}
+
+.hr-attendance-header h1 {
+    margin: 0 0 7px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #121826;
+}
+
+.hr-attendance-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #5b6472;
+}
+
+.hr-attendance-header-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hr-attendance-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid #dfe4eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #121826;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.hr-attendance-back::before {
+    content: '←';
+    font-size: 14px;
+    color: #8a93a3;
+}
+
+.hr-attendance-back:hover {
+    background: #f3f6f9;
+    border-color: #c3cad5;
+}
+
+.hr-attendance-process-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #121826;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hr-attendance-process-btn:hover:not(:disabled) {
+    background: #1a2233;
+}
+
+.hr-attendance-process-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ---------- Error banner ---------- */
+
+.hr-attendance-error-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 16px;
+    margin-bottom: 22px;
+    border-left: 3px solid #b3261e;
+    border-radius: 8px;
+    background: #fbeae9;
+    color: #9f211b;
+    font-size: 14px;
+}
+
+.hr-attendance-retry-btn {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    border: 1px solid #f1cfcc;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #b3261e;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hr-attendance-retry-btn:hover {
+    background: #fbeae9;
+}
+
+/* ---------- Date filter ---------- */
+
+.hr-attendance-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.hr-attendance-filter-field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #5b6472;
+}
+
+.hr-attendance-filter-field input {
+    padding: 9px 12px;
+    border: 1px solid #dfe4eb;
+    border-radius: 7px;
+    background: #ffffff;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14px;
+    color: #121826;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hr-attendance-filter-field input:focus {
+    outline: none;
+    border-color: #1e7f6b;
+    box-shadow: 0 0 0 3px #e8f3f0;
+}
+
+.hr-attendance-filter-apply {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 7px;
+    background: #1e7f6b;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hr-attendance-filter-apply:hover {
+    background: #146856;
+}
+
+.hr-attendance-filter-clear {
+    padding: 10px 18px;
+    border: 1px solid #dfe4eb;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #121826;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hr-attendance-filter-clear:hover {
+    background: #f3f6f9;
+}
+
+/* ---------- Summary grid ---------- */
+
+.hr-attendance-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.hr-attendance-summary-card {
+    padding: 16px 18px;
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.hr-attendance-summary-card--present {
+    background: #f2f8f6;
+    border-color: #bfe0d7;
+}
+
+.hr-attendance-summary-card--late {
+    background: #fbf6ec;
+    border-color: #ecd9ac;
+}
+
+.hr-attendance-summary-card--halfday {
+    background: #eef4fb;
+    border-color: #bdd6ef;
+}
+
+.hr-attendance-summary-card--absent {
+    background: #fbf0ef;
+    border-color: #edc0bc;
+}
+
+.hr-attendance-summary-label {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5b6472;
+}
+
+.hr-attendance-summary-value {
+    margin: 0;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #121826;
+}
+
+.hr-attendance-summary-card--present .hr-attendance-summary-value,
+.hr-attendance-summary-card--present .hr-attendance-summary-label {
+    color: #146856;
+}
+
+.hr-attendance-summary-card--late .hr-attendance-summary-value,
+.hr-attendance-summary-card--late .hr-attendance-summary-label {
+    color: #9c6e1f;
+}
+
+.hr-attendance-summary-card--halfday .hr-attendance-summary-value,
+.hr-attendance-summary-card--halfday .hr-attendance-summary-label {
+    color: #2a5a8c;
+}
+
+.hr-attendance-summary-card--absent .hr-attendance-summary-value,
+.hr-attendance-summary-card--absent .hr-attendance-summary-label {
+    color: #b3261e;
+}
+
+/* ---------- Table ---------- */
+
+.hr-attendance-table-card {
+    overflow: hidden;
+    border: 1px solid #e4e8ee;
+    border-top: 3px solid #1e7f6b;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow:
+        0 2px 5px rgba(18, 24, 38, 0.03),
+        0 8px 24px rgba(18, 24, 38, 0.04);
+}
+
+.hr-attendance-table-wrapper {
+    overflow-x: auto;
+}
+
+.hr-attendance-table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.hr-attendance-table thead {
+    background: #f7f9fb;
+}
+
+.hr-attendance-table th {
+    padding: 14px 18px;
+    border-bottom: 1px solid #e4e8ee;
+    color: #5b6472;
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.hr-attendance-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #eef1f5;
+    color: #121826;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.hr-attendance-table tbody tr:hover td {
+    background: #f8fafb;
+}
+
+.hr-attendance-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.hr-attendance-table td.is-mono {
+    font-family: 'IBM Plex Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    color: #303949;
+}
+
+.hr-attendance-table td.is-muted {
+    color: #8a93a3;
+}
+
+.hr-attendance-empty-row td {
+    padding: 40px 20px;
+    text-align: center;
+    color: #5b6472;
+    white-space: normal;
+}
+
+/* ---------- Status pills ---------- */
+
+.hr-attendance-status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.hr-attendance-status-pill--present {
+    background: #e8f3f0;
+    color: #146856;
+}
+
+.hr-attendance-status-pill--late {
+    background: #fbf1e1;
+    color: #9c6e1f;
+}
+
+.hr-attendance-status-pill--half_day {
+    background: #e8f0fb;
+    color: #2a5a8c;
+}
+
+.hr-attendance-status-pill--absent {
+    background: #fbeae9;
+    color: #b3261e;
+}
+
+.hr-attendance-status-pill--leave {
+    background: #eef0f3;
+    color: #5b6472;
+}
+
+.hr-attendance-status-pill--working {
+    background: transparent;
+    border: 1px solid #1e7f6b;
+    color: #146856;
+}
+
+/* ---------- Row edit action ---------- */
+
+.hr-attendance-edit-btn {
+    padding: 6px 14px;
+    border: 1px solid #dfe4eb;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #121826;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hr-attendance-edit-btn:hover {
+    background: #f3f6f9;
+    border-color: #c3cad5;
+}
+
+/* ---------- Edit modal ---------- */
+
+.hr-attendance-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(18, 24, 38, 0.5);
+}
+
+.hr-attendance-modal-card {
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px 30px;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 20px 50px rgba(18, 24, 38, 0.25);
+}
+
+.hr-attendance-modal-title {
+    margin: 0 0 20px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: #121826;
+}
+
+.hr-attendance-field {
+    margin-bottom: 16px;
+}
+
+.hr-attendance-field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #121826;
+}
+
+.hr-attendance-field select,
+.hr-attendance-field input,
+.hr-attendance-field textarea {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #dfe4eb;
+    border-radius: 8px;
+    background: #ffffff;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14.5px;
+    color: #121826;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.hr-attendance-field textarea {
+    resize: vertical;
+    min-height: 76px;
+}
+
+.hr-attendance-field select:focus,
+.hr-attendance-field input:focus,
+.hr-attendance-field textarea:focus {
+    outline: none;
+    border-color: #1e7f6b;
+    box-shadow: 0 0 0 3px #e8f3f0;
+}
+
+.hr-attendance-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.hr-attendance-save-btn {
+    flex: 1;
+    padding: 11px;
+    border: none;
+    border-radius: 8px;
+    background: #1e7f6b;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hr-attendance-save-btn:hover:not(:disabled) {
+    background: #146856;
+}
+
+.hr-attendance-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.hr-attendance-cancel-btn {
+    flex: 1;
+    padding: 11px;
+    border: 1px solid #dfe4eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #121826;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.hr-attendance-cancel-btn:hover:not(:disabled) {
+    background: #f3f6f9;
+}
+
+.hr-attendance-cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+    .hr-attendance-page {
+        padding: 28px 16px 48px;
+    }
+
+    .hr-attendance-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .hr-attendance-header h1 {
+        font-size: 26px;
+    }
+
+    .hr-attendance-header-actions {
+        width: 100%;
+    }
+
+    .hr-attendance-back,
+    .hr-attendance-process-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .hr-attendance-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hr-attendance-filter-apply,
+    .hr-attendance-filter-clear {
+        width: 100%;
+    }
+
+    .hr-attendance-table th,
+    .hr-attendance-table td {
+        padding: 12px 14px;
+    }
+}

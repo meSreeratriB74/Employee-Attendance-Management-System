@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root {
+  --ink: #121826;
+  --ink-soft: #1a2233;
+  --ink-line: rgba(255, 255, 255, 0.07);
+  --paper: #fafbfd;
+  --paper-line: #e3e7ee;
+  --steel: #5b6472;
+  --steel-100: #8a93a3;
+  --paper-text: #edeff3;
+  --paper-text-dim: #aab2c2;
+  --ink-text: #121826;
+  --signal: #1e7f6b;
+  --signal-dark: #146856;
+  --signal-bg: #e8f3f0;
+  --alert: #b3261e;
+  --alert-bg: #fbeae9;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  color: var(--ink-text);
+}
+
+/* ---------- Page shell: two-panel layout ---------- */
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(320px, 42%) 1fr;
+  background: var(--paper);
+}
+
+/* ---------- Left panel: brand + live clock ---------- */
+
+.login-brand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 56px;
+  background: var(--ink);
+  color: var(--paper-text);
+  overflow: hidden;
+}
+
+.login-brand::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--ink-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink-line) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse at 30% 30%, black 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.login-brand__mark {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+}
+
+.login-brand__mark-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--signal);
+}
+
+.login-brand__clock {
+  position: relative;
+}
+
+.login-brand__time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.login-brand__date {
+  margin-top: 10px;
+  font-size: 15px;
+  color: var(--paper-text-dim);
+}
+
+.login-brand__tagline {
+  position: relative;
+  max-width: 30ch;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--paper-text);
+}
+
+.login-brand__footer {
+  position: relative;
+  font-size: 13px;
+  color: var(--paper-text-dim);
+}
+
+/* ---------- Right panel: form ---------- */
+
+.login-form-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 24px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 380px;
+}
+
+.login-container h1 {
+  margin: 0 0 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--ink-text);
+}
+
+.login-container h2 {
+  margin: 0 0 32px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+.login-container form > div {
+  margin-bottom: 20px;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-text);
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--paper-line);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--ink-text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-container input::placeholder {
+  color: var(--steel-100);
+}
+
+.login-container input:focus {
+  outline: none;
+  border-color: var(--signal);
+  box-shadow: 0 0 0 3px var(--signal-bg);
+}
+
+.login-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -4px 0 24px;
+  font-size: 13.5px;
+}
+
+.login-options label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-weight: 400;
+  color: var(--steel);
+  cursor: pointer;
+}
+
+.login-options input[type='checkbox'] {
+  width: auto;
+  accent-color: var(--signal);
+}
+
+.login-options a {
+  color: var(--signal-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-options a:hover {
+  text-decoration: underline;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--signal);
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.login-container button:hover:not(:disabled) {
+  background: var(--signal-dark);
+}
+
+.login-container button:focus-visible {
+  outline: 2px solid var(--signal-dark);
+  outline-offset: 2px;
+}
+
+.login-container button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-error {
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--alert);
+  background: var(--alert-bg);
+  color: var(--alert);
+  font-size: 14px;
+}
+
+.login-footnote {
+  margin-top: 28px;
+  font-size: 13px;
+  color: var(--steel-100);
+  text-align: center;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 880px) {
+  .login-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .login-brand {
+    padding: 32px 28px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .login-brand__clock,
+  .login-brand__footer {
+    display: none;
+  }
+
+  .login-brand__tagline {
+    font-size: 16px;
+    max-width: none;
+  }
+
+  .login-form-panel {
+    padding: 32px 24px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-container input,
+  .login-container button {
+    transition: none;
+  }
+}

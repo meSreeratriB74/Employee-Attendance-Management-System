@@ -1,0 +1,492 @@
+/* ==========================================================
+   Employee Management Page (HR / Admin)
+   ========================================================== */
+
+.employee-management-page {
+    min-height: 100vh;
+    background: #fafbfd;
+    padding: 42px clamp(20px, 4vw, 60px) 70px;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    color: #121826;
+}
+
+.employee-management-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.employee-management-loading {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #fafbfd;
+    color: #5b6472;
+    font-size: 14px;
+}
+
+/* ---------- Header ---------- */
+
+.employee-management-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.employee-management-header h1 {
+    margin: 0 0 7px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #121826;
+}
+
+.employee-management-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #5b6472;
+}
+
+.employee-management-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid #dfe4eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #121826;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.employee-management-back::before {
+    content: '←';
+    font-size: 14px;
+    color: #8a93a3;
+}
+
+.employee-management-back:hover {
+    background: #f3f6f9;
+    border-color: #c3cad5;
+}
+
+.employee-management-back:focus-visible {
+    outline: 2px solid #1e7f6b;
+    outline-offset: 2px;
+}
+
+/* ---------- Error banner ---------- */
+
+.employee-management-error-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 16px;
+    margin-bottom: 22px;
+    border-left: 3px solid #b3261e;
+    border-radius: 8px;
+    background: #fbeae9;
+    color: #9f211b;
+    font-size: 14px;
+}
+
+.employee-management-retry-btn {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    border: 1px solid #f1cfcc;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #b3261e;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.employee-management-retry-btn:hover {
+    background: #fbeae9;
+}
+
+/* ---------- Stat cards ---------- */
+
+.employee-management-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.employee-management-stat-card {
+    padding: 20px 22px;
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.employee-management-stat-card--active {
+    border-color: #1e7f6b;
+    background: #f2f8f6;
+}
+
+.employee-management-stat-card--inactive {
+    background: #f5f6f8;
+}
+
+.employee-management-stat-label {
+    margin: 0 0 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #5b6472;
+}
+
+.employee-management-stat-card--active .employee-management-stat-label {
+    color: #146856;
+}
+
+.employee-management-stat-value {
+    margin: 0;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #121826;
+}
+
+.employee-management-stat-card--active .employee-management-stat-value {
+    color: #146856;
+}
+
+/* ---------- Table ---------- */
+
+.employee-management-table-card {
+    overflow: hidden;
+    border: 1px solid #e4e8ee;
+    border-top: 3px solid #1e7f6b;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow:
+        0 2px 5px rgba(18, 24, 38, 0.03),
+        0 8px 24px rgba(18, 24, 38, 0.04);
+}
+
+.employee-management-table-wrapper {
+    overflow-x: auto;
+}
+
+.employee-management-table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.employee-management-table thead {
+    background: #f7f9fb;
+}
+
+.employee-management-table th {
+    padding: 15px 20px;
+    border-bottom: 1px solid #e4e8ee;
+    color: #5b6472;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.employee-management-table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eef1f5;
+    color: #121826;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.employee-management-table tbody tr:hover td {
+    background: #f8fafb;
+}
+
+.employee-management-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.employee-management-id-cell {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: #303949;
+}
+
+.employee-management-empty-row td {
+    padding: 40px 20px;
+    text-align: center;
+    color: #5b6472;
+    white-space: normal;
+}
+
+/* ---------- Status pill ---------- */
+
+.employee-management-status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.employee-management-status-pill--active {
+    background: #e8f3f0;
+    color: #146856;
+}
+
+.employee-management-status-pill--inactive {
+    background: #eef0f3;
+    color: #5b6472;
+}
+
+/* ---------- Row actions ---------- */
+
+.employee-management-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.employee-management-action-btn {
+    padding: 6px 14px;
+    border-radius: 7px;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border: 1px solid #dfe4eb;
+    background: #ffffff;
+    color: #121826;
+}
+
+.employee-management-action-btn:hover {
+    background: #f3f6f9;
+    border-color: #c3cad5;
+}
+
+.employee-management-action-btn--activate {
+    border-color: #bfe0d7;
+    color: #146856;
+}
+
+.employee-management-action-btn--activate:hover {
+    background: #e8f3f0;
+}
+
+.employee-management-action-btn--deactivate {
+    border-color: #f1cfcc;
+    color: #b3261e;
+}
+
+.employee-management-action-btn--deactivate:hover {
+    background: #fbeae9;
+}
+
+/* ---------- Modal shared ---------- */
+
+.employee-management-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(18, 24, 38, 0.5);
+}
+
+.employee-management-modal-card {
+    width: 100%;
+    max-width: 460px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 28px 30px;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 20px 50px rgba(18, 24, 38, 0.25);
+}
+
+.employee-management-modal-title {
+    margin: 0 0 20px;
+    font-family: 'Space Grotesk', Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: #121826;
+}
+
+/* ---------- View modal ---------- */
+
+.employee-management-detail-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid #eef1f5;
+    font-size: 14px;
+}
+
+.employee-management-detail-row:last-of-type {
+    border-bottom: none;
+}
+
+.employee-management-detail-label {
+    color: #5b6472;
+}
+
+.employee-management-detail-value {
+    font-weight: 600;
+    color: #121826;
+    text-align: right;
+}
+
+.employee-management-modal-close {
+    width: 100%;
+    margin-top: 22px;
+    padding: 11px;
+    border: 1px solid #dfe4eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #121826;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.employee-management-modal-close:hover {
+    background: #f3f6f9;
+}
+
+/* ---------- Edit form ---------- */
+
+.employee-management-field {
+    margin-bottom: 16px;
+}
+
+.employee-management-field label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #121826;
+}
+
+.employee-management-field input {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid #dfe4eb;
+    border-radius: 8px;
+    background: #ffffff;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14.5px;
+    color: #121826;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.employee-management-field input:focus {
+    outline: none;
+    border-color: #1e7f6b;
+    box-shadow: 0 0 0 3px #e8f3f0;
+}
+
+.employee-management-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.employee-management-save-btn {
+    flex: 1;
+    padding: 11px;
+    border: none;
+    border-radius: 8px;
+    background: #1e7f6b;
+    color: #ffffff;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.employee-management-save-btn:hover:not(:disabled) {
+    background: #146856;
+}
+
+.employee-management-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.employee-management-cancel-btn {
+    flex: 1;
+    padding: 11px;
+    border: 1px solid #dfe4eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #121826;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.employee-management-cancel-btn:hover:not(:disabled) {
+    background: #f3f6f9;
+}
+
+.employee-management-cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+    .employee-management-page {
+        padding: 28px 16px 48px;
+    }
+
+    .employee-management-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .employee-management-header h1 {
+        font-size: 26px;
+    }
+
+    .employee-management-back {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .employee-management-table th,
+    .employee-management-table td {
+        padding: 13px 16px;
+    }
+
+    .employee-management-modal-card {
+        padding: 24px 20px;
+    }
+}
